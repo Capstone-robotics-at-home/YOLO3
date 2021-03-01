@@ -8,7 +8,7 @@ from Path_Utils import plotting, env
 
 yolo = YOLO()
 
-img = 'img/026.jpg'
+img = 'img/2.jpg'
 try:
     image = Image.open(img)
 except:
