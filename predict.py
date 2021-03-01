@@ -1,5 +1,5 @@
 #-------------------------------------#
-#       对单张图片进行预测
+#       single image detection
 #-------------------------------------#
 from yolo import YOLO
 from PIL import Image

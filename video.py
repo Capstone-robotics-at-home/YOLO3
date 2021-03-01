@@ -1,5 +1,5 @@
 #-------------------------------------#
-#       Detect with camera 
+#       Video detection 
 #-------------------------------------#
 from yolo import YOLO
 from PIL import Image
