@@ -32,12 +32,13 @@ while(True):
     # Use Astar
     s_start = objects['Jetbot'][0]
     s_goal = objects['Target'][0]
-    obstacle = objects['Obstacle']
-    obstacle = [obstacle[0]] if len(obstacle[0]) == 2 else [i[0] for i in obstacle]
-    astar = Astar(s_start, s_goal, obstacle)
+    obstacle_ls = objects['Obstacle']
+    if type(obstacle_ls[0]) == type(()):  # if there is only one obstacle:
+        obstacle_ls = [obstacle_ls]
+    astar = Astar(s_start, s_goal, obstacle_ls)
     path, visited = astar.searching()
 
-    plot = plotting.Plotting(s_start, s_goal, obstacle)
+    plot = plotting.Plotting(s_start, s_goal, obstacle_ls)
     # plot.animation(path,visited,'AStar')
     frame = plot.plot_image_path(frame,path)
 
