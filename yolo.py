@@ -117,7 +117,7 @@ class YOLO(object):
         try:
             batch_detections = batch_detections[0].cpu().numpy()
         except:
-            return image
+            return image, {}
         top_index = batch_detections[:, 4] * \
             batch_detections[:, 5] > self.confidence
         top_conf = batch_detections[top_index, 4] * \

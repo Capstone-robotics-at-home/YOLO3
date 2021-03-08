@@ -11,8 +11,8 @@ from Path_Utils import plotting, env
 yolo = YOLO()
 # get the camera 
 # capture=cv2.VideoCapture("1.mp4" Or 0)
-capture=cv2.VideoCapture("img/b.mp4") 
-# capture=cv2.VideoCapture(0) 
+# capture=cv2.VideoCapture("img/b.mp4") 
+capture=cv2.VideoCapture(0) 
 
 fps = 0.0
 while(True): 

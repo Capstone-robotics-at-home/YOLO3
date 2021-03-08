@@ -2,8 +2,12 @@ class Env:
     def __init__(self, obstacles):
         self.x_range = 51  # size of the background 
         self.y_range = 31 
-        self.motions = [(-1,0),(-1,1),(0,1),(1,1),
-                        (1,0),(1,-1),(0,-1),(-1,-1)]
+        # self.motions = [(2,0),(-2,0),(0,2),(0,-2),
+        #                 (1,1),(1,-1),(-1,1),(-1,-1)]
+        self.motions = [(5,0),(-5,0),(0,5),(0,-5),
+                        (3,4),(3,-4),(-3,4),(-3,4),                   
+                        (4,3),(4,-3),(-4,3),(-3,4),]
+
 
         self.obs = self.obs_map_mod(obstacles)
 

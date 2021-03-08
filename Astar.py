@@ -7,11 +7,11 @@ class Astar:
     '''Astar set the cost + heuristics as the priority 
     '''
 
-    def __init__(self, s_start, s_goal, obs = [], heuristic_type = 'manhattan'):
+    def __init__(self, s_start, s_goal, obs, heuristic_type = 'manhattan'):
         self.s_start = s_start
         self.s_goal = s_goal
         self.heuristic_type = heuristic_type
-        self.Env = env.Env() if obs == [] else env.Env(obs) # class env
+        self.Env = env.Env(obs) # class env
         self.u_set = self.Env.motions
         self.obs = self.Env.obs
 
@@ -19,6 +19,8 @@ class Astar:
         self.ClOSED = []  # visited points
         self.PARENT = dict()  # the recorded parent
         self.g = dict()  # cost to come
+
+
 
     def searching(self):
         """ 
@@ -35,7 +37,8 @@ class Astar:
             _, s = heapq.heappop(self.OPEN)
             self.ClOSED.append(s)
 
-            if s == self.s_goal:
+            if abs(s[0] - self.s_goal[0]) + abs(s[1] - self.s_goal[1]) < 10:  # tuning param
+                end_point = s 
                 break  # stop condition
 
             for s_n in self.get_neighbor(s):
@@ -51,14 +54,14 @@ class Astar:
                     self.PARENT[s_n] = s
                     heapq.heappush(self.OPEN, (self.f_value(s_n), s_n))
 
-        return self.extract_path(self.PARENT), self.ClOSED
+        return self.extract_path(self.PARENT,end_point), self.ClOSED
 
-    def extract_path(self, PARENT):
+    def extract_path(self, PARENT, end ):
         """ extract the path based on the parent set
         :return: the planning path """
 
-        path = [self.s_goal]
-        s = self.s_goal
+        path = [end]
+        s = end 
 
         while True:
             s = PARENT[s]
@@ -94,7 +97,7 @@ class Astar:
         :param s_end: end node 
         :return: True/ False  """
 
-        # XXX confused
+        # ??? confused
 
         if s_start in self.obs or s_end in self.obs:
             return True
@@ -136,11 +139,20 @@ class Astar:
 
 
 if __name__ == '__main__':
-    s_start = (5, 5)
-    s_goal = (45, 25)
-    obstacle = [(20,5),(30,3),(40,25)]
-    astar = Astar(s_start, s_goal, obstacle)
+
+    objects = {'Jetbot': [(953, 461), 834, 1073, 636, 287], 
+        'Obstacle': [(1100, 300), 1000,1200,800,0], 
+        'Target': [(1342, 170), 1308, 1377, 249, 92], 
+        'Grabber': [(1054, 626), 1003, 1106, 728, 525]}
+    obstacle_ls = objects['Obstacle']
+    s_start = objects['Jetbot'][0]
+    s_goal = objects['Target'][0] 
+    if type(obstacle_ls[0]) == type(()):  # if there is only one obstacle:
+        obstacle_ls = [obstacle_ls]
+
+    astar = Astar(s_start, s_goal, obstacle_ls)
     path, visited = astar.searching()
 
-    plot = plotting.Plotting(s_start, s_goal, obstacle)
+    plot = plotting.Plotting(s_start, s_goal, obstacle_ls)
     plot.animation(path,visited,'AStar')
+
