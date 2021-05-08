@@ -8,14 +8,14 @@ from Path_Utils import plotting, env
 
 yolo = YOLO()
 
-img = 'img/2.jpg'
+img = 'img/real.jpg'  # change it to see more scenarios
 try:
     image = Image.open(img)
 except:
     print('Open Error! Try again!')
 else:
     r_image, objects = yolo.detect_image(image)
-    # r_image.show()
+    r_image.show()
 
 s_start = objects['Jetbot'][0]
 s_goal = objects['Target'][0]

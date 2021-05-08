@@ -4,3 +4,8 @@ model_data/yolo_weights.pth
 *.pth
 .idea/
 results/
+VOCdevkit/VOC2007/Annotations/*
+VOCdevkit/VOC2007/JPEGImages/*
+2007_test.txt
+2007_train.txt
+2007_val.txt
